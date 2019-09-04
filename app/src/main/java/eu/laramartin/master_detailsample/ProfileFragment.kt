@@ -5,60 +5,55 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import eu.laramartin.master_detailsample.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
+    private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        lateinit var view: View
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
 
-        val isTablet = context!!.resources.getBoolean(R.bool.isTablet)
-
-        when {
-            isTablet -> {
-                view = inflater.inflate(R.layout.fragment_profile_land, container, false)
-                displayMasterDetailLayout(view)
-            }
-            else -> {
-                view = inflater.inflate(R.layout.fragment_profile, container, false)
-                displaySingleLayout(view)
-            }
+        if (context!!.resources.getBoolean(R.bool.isTablet)) {
+            displayMasterDetailLayout()
+        } else {
+            displaySingleLayout()
         }
 
-        return view
+        return binding.root
     }
 
-    private fun displaySingleLayout(view: View) {
-        view.findViewById<TextView>(R.id.account_textview).setOnClickListener(
+    private fun displaySingleLayout() {
+        binding.profileLayout.accountTextView.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_profile_fragment_to_fragment_account)
         )
-        view.findViewById<TextView>(R.id.notifications_textview).setOnClickListener(
+        binding.profileLayout.notificationsTextView.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_profile_fragment_to_fragment_notifications)
         )
-        view.findViewById<TextView>(R.id.settings_textview).setOnClickListener(
+        binding.profileLayout.settingsTextView.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_profile_fragment_to_fragment_settings)
         )
     }
 
-    private fun displayMasterDetailLayout(view: View) {
+    private fun displayMasterDetailLayout() {
         val navHostFragment =
             childFragmentManager.findFragmentById(R.id.profile_nav_container) as NavHostFragment
 
-        view.findViewById<TextView>(R.id.account_textview).setOnClickListener {
+        binding.profileLayout.accountTextView.setOnClickListener {
             navHostFragment.navController.navigate(R.id.fragment_account)
         }
 
-        view.findViewById<TextView>(R.id.notifications_textview).setOnClickListener {
+        binding.profileLayout.notificationsTextView.setOnClickListener {
             navHostFragment.navController.navigate(R.id.fragment_notifications)
         }
 
-        view.findViewById<TextView>(R.id.settings_textview).setOnClickListener {
+        binding.profileLayout.settingsTextView.setOnClickListener {
             navHostFragment.navController.navigate(R.id.fragment_settings)
         }
     }
