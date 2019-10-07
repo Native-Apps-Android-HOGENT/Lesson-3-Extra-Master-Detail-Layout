@@ -5,7 +5,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,8 +18,7 @@ class MainActivity : AppCompatActivity() {
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.main_container) as NavHostFragment
 
-        findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
-            .setupWithNavController(navController = navHostFragment.navController)
+        bottom_navigation_view.setupWithNavController(navController = navHostFragment.navController)
 
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             supportActionBar!!.title = destination.label

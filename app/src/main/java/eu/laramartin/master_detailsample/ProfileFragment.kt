@@ -42,19 +42,19 @@ class ProfileFragment : Fragment() {
     }
 
     private fun displayMasterDetailLayout() {
-        val navHostFragment =
+        val detailNavHost =
             childFragmentManager.findFragmentById(R.id.profile_nav_container) as NavHostFragment
 
         binding.profileLayout.accountTextView.setOnClickListener {
-            navHostFragment.navController.navigate(R.id.fragment_account)
+            detailNavHost.navController.navigate(R.id.fragment_account)
         }
 
         binding.profileLayout.notificationsTextView.setOnClickListener {
-            navHostFragment.navController.navigate(R.id.fragment_notifications)
+            detailNavHost.navController.navigate(R.id.fragment_notifications)
         }
 
         binding.profileLayout.settingsTextView.setOnClickListener {
-            navHostFragment.navController.navigate(R.id.fragment_settings)
+            detailNavHost.navController.navigate(R.id.fragment_settings)
         }
     }
 }
